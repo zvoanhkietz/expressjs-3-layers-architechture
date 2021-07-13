@@ -1,15 +1,21 @@
-module.exports = class Validator {
+export default class Validator {
   /**
    * constructor
+   *
    * @param {Array} rules
    */
   constructor (rules = []) {
-    this.providers = []
+    this.providers = {general: []}
     this.rules = rules
     this.errors = []
     this.init()
   }
 
+  /**
+   * init is method for inherited
+   *
+   * @returns {void}
+   */
   init () {
 
   }
@@ -43,9 +49,14 @@ module.exports = class Validator {
    * @returns Function to check
    */
   findValidate (rule) {
+    const providerName = rule.provider || 'general'
+    if (!(providerName in this.providers)) {
+      throw new Error(`Provider ${providerName} not found.`)
+    }
+
     let checkOk = null
     if (typeof rule.check === 'string') {
-      for (const provider of this.providers) {
+      for (const provider of this.providers[providerName]) {
         if (rule.check in provider) {
           checkOk = provider[rule.check]
           break
@@ -54,7 +65,7 @@ module.exports = class Validator {
     }
 
     if (checkOk === null) {
-      throw new Error(`function ${rule.check} not found.`)
+      throw new Error(`Function ${rule.check} not found.`)
     }
     return checkOk
   }
@@ -63,18 +74,31 @@ module.exports = class Validator {
    * Add a provider to storage
    *
    * @param {Object} provider
-   * @returns
+   * @param {string} name of provider
+   * @returns {Validator}
    */
-  addProvider (provider) {
-    this.providers.push(provider)
+  addProvider (provider, name = 'general') {
+    this.providers[name] = this.providers[name] || []
+    this.providers[name].push(provider)
     return this
   }
 
+  /**
+   * Add a rule to list
+   *
+   * @param {Object} rule
+   * @returns {Validator}
+   */
   addRule (rule) {
     this.rules.push(rule)
     return this
   }
 
+  /**
+   * Get list of message errors
+   *
+   * @returns {Array<Object>}
+   */
   getMessages () {
     return this.errors
   }

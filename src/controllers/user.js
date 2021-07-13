@@ -1,10 +1,18 @@
-const UserService = require('../services/user')
-const models = require('../models')
-const GetUserValidator = require('../validations/get-user')
-const createError = require('http-errors')
+import createError from 'http-errors'
 
-module.exports = {
-  getUsers: async (req, res) => {
+import models from '../models'
+import UserService from '../services/user'
+import GetUserValidator from '../validations/user/get-user'
+
+export default {
+  /**
+   * Get list users
+   *
+   * @param {Express.Request} req
+   * @param {Express.Response} res
+   * @return {Promise<void>}
+   */
+  async getUsers (req, res) {
     // get request param
     const queries = {
       limit: parseInt(req.query.limit || 20),

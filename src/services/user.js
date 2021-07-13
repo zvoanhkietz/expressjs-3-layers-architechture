@@ -1,8 +1,9 @@
-const {Op} = require('sequelize')
-const { splitComma } = require('../libs/string-utils')
-const moment = require('moment')
+import moment from 'moment'
+import { Op } from 'sequelize'
 
-module.exports = class UserService {
+import { splitStrToArray } from '../libs/string-utils'
+
+export default class UserService {
   /**
    * constructor
    *
@@ -25,7 +26,7 @@ module.exports = class UserService {
     // filter in list of accounts
     if (queries.account) {
       usersFilter.push({
-        account: { [Op.in]: splitComma(queries.account) }
+        account: { [Op.in]: splitStrToArray(queries.account) }
       })
     }
 
@@ -38,9 +39,7 @@ module.exports = class UserService {
 
     // filter by start <= birthday <= end
     if (queries.birthday) {
-      const [startDate, endDate] = queries.birthday
-        .split('~')
-        .map(s => s.trim())
+      const [startDate, endDate] = splitStrToArray(queries.birthday, '~')
       if (startDate !== '') {
         usersFilter.push({
           birthday: {
@@ -66,12 +65,10 @@ module.exports = class UserService {
     }
 
     // get fields
-    const attributes = queries.fields ? splitComma(queries.fields) : null
+    const attributes = queries.fields ? splitStrToArray(queries.fields) : null
 
     // get orders
-    const orders = queries.orders
-      .split(',')
-      .map(o => o.trim().split(' '))
+    const orders = splitStrToArray(queries.orders).map(o => splitStrToArray(o, ' '))
 
     const filters = {
       limit: queries.limit,

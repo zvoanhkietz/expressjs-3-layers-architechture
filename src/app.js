@@ -1,20 +1,19 @@
-require('dotenv').config()
-const createError = require('http-errors')
-const express = require('express')
-const cors = require('cors')
-const morgan = require('morgan')
-const config = require('./config/config')
-const path = require('path')
+import cors from 'cors'
+import dotenv from 'dotenv'
+import express, { json } from 'express'
+import createError from 'http-errors'
+import morgan from 'morgan'
+import { join } from 'path'
 
+import { port } from './config/config'
+import loadRoutes from './libs/load-routes'
+
+dotenv.config()
 const app = express()
 app.use(morgan('combined'))
-app.use(express.json())
+app.use(json())
 app.use(cors())
-
-app.use(require('./libs/load-routes')(
-  path.join(__dirname, './routes'),
-  true
-))
+app.use(loadRoutes(join(__dirname, './routes'), true))
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -22,7 +21,7 @@ app.use(function (req, res, next) {
 })
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
@@ -34,4 +33,4 @@ app.use(function (err, req, res, next) {
   })
 })
 
-app.listen(config.port)
+app.listen(port)

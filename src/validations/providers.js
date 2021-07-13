@@ -1,11 +1,11 @@
-const { splitComma } = require('../libs/string-utils')
+import { splitStrToArray } from '../libs/string-utils'
 
-module.exports = {
-  inlist: (value, list) => {
+export default {
+  inlist (value, list) {
     return list.includes(value)
   },
-  commaInlist: (value, list) => {
-    const values = splitComma(value)
+  commaInlist (value, list) {
+    const values = splitStrToArray(value)
     for (const v of values) {
       if (!list.includes(v)) {
         return false
@@ -13,8 +13,8 @@ module.exports = {
     }
     return true
   },
-  isValidOrders: (value, fields) => {
-    const orders = value.split(',').map(o => o.trim().split(' '))
+  isValidOrders (value, fields) {
+    const orders = splitStrToArray(value).map(o => splitStrToArray(o, ' '))
     for (const [field, dir] of orders) {
       if (!fields.includes(field)) {
         return false

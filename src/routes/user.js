@@ -1,12 +1,18 @@
-const catchWrap = require('../middlewares/catch-wrap')
-const AuthMiddleware = require('../middlewares/auth')
-const UserController = require('../controllers/user')
+import { getUsers } from '../controllers/user'
+import { checkToken } from '../middlewares/auth'
+import catchWrap from '../middlewares/catch-wrap'
 
-module.exports = function (router) {
+/**
+ * Init a express router
+ *
+ * @param {Express.Router} router
+ * @returns {Express.Router}
+ */
+export default function (router) {
   router.get(
     '/user',
-    catchWrap(AuthMiddleware.checkToken),
-    catchWrap(UserController.getUsers)
+    catchWrap(checkToken),
+    catchWrap(getUsers)
   )
   return router
 }

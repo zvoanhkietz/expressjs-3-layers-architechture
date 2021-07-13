@@ -1,7 +1,9 @@
-const path = require('path')
-const Sequelize = require('sequelize')
+import Sequelize from 'sequelize'
+
+import dbConfig from '../config/db'
+
 const env = process.env.NODE_ENV || 'development'
-const config = require(path.join(__dirname, '/../config/db.js'))[env]
+const config = dbConfig[env]
 
 let sequelize
 if (config.use_env_variable) {
@@ -10,16 +12,11 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config)
 }
 
-const db = require('../libs/autoload')(__dirname, __filename, [sequelize])
+const db = require('../libs/autoload').default(__dirname, __filename, [sequelize])
 
-Object.keys(db).forEach(async (modelName) => {
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db)
-  }
-
-  if (env === 'development') {
-    // automatically synchronize all models
-    await db[modelName].sync()
   }
 
   // get colums of tables
@@ -28,5 +25,10 @@ Object.keys(db).forEach(async (modelName) => {
     .map(o => o.field)
 })
 
+if (env === 'development') {
+  // automatically synchronize all models
+  sequelize.sync()
+}
+
 db.sequelize = sequelize
-module.exports = db
+export default db

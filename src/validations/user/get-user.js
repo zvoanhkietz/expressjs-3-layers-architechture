@@ -1,11 +1,16 @@
-const Validator = require('../libs/validator')
-const ValidationProvider = require('./providers')
-const { User } = require('../models')
+import Validator from '../../libs/validator'
+import { User } from '../../models'
+import ValidationProvider from '../providers'
 
-module.exports = class GetUserValidator extends Validator {
+export default class GetUserValidator extends Validator {
+  /**
+   * init validator
+   *
+   * @returns {void}
+   */
   init () {
     const userFields = User.getFields()
-    this
+    this.addProvider(ValidationProvider)
       .addRule({
         field: 'limit',
         args: [[10, 20, 50, 100, 1000]],
@@ -24,6 +29,5 @@ module.exports = class GetUserValidator extends Validator {
         check: 'isValidOrders',
         message: `orders must be in list [${userFields.join(', ')} and has valid format ex:'id asc, account desc']`
       })
-      .addProvider(ValidationProvider)
   }
 }

@@ -24,6 +24,12 @@ $ yarn lint
 # fix style
 $ yarn lint:fix
 
+# run unit test
+$ yarn test
+
+# run to show coverage
+$ yarn test:coverage
+
 # run for testing API
 http://localhost:8081/user
 ```
@@ -31,6 +37,7 @@ http://localhost:8081/user
 ## Structures
 ```
 └── src
+    ├── __tests__
     ├── config
     ├── controllers
     ├── libs
@@ -44,14 +51,15 @@ http://localhost:8081/user
 ## Explain to each directory
 | Directory | Description |
 | --- | --- |
-| src/config | Configuration file form application deployment |
-| src/controllers | Folder contains controller files follow 3 layers architechture |
-| src/libs | Folder contains common functions |
-| src/middlewares | Folder contains middleware files for route protected |
-| src/models | Folder contains model files follow 3 layers architechture |
-| src/routers | Folder contains router files |
-| src/services | Folder contains all business logic of application, and can also make calls to the data access layer |
-| src/validations | Folder contains all define of validation for request or response data |
+| `src/__tests__` | Folder contains unit test files |
+| `src/config` | Configuration file form application deployment |
+| `src/controllers` | Folder contains controller files follow 3 layers architechture |
+| `src/libs` | Folder contains common functions |
+| `src/middlewares` | Folder contains middleware files for route protected |
+| `src/models` | Folder contains model files follow 3 layers architechture |
+| `src/routers` | Folder contains router files |
+| `src/services` | Folder contains all business logic of application, and can also make calls to the data access layer |
+| `src/validations` | Folder contains all define of validation for request or response data |
 
 ## Workflow
 

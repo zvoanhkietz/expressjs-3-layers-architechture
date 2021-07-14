@@ -3,6 +3,24 @@
     "@babel/preset-env"
   ],
   "plugins": [
-    "@babel/transform-runtime"
+    "@babel/transform-runtime",
+    [
+      "babel-plugin-module-resolver",
+      {
+        "root": [
+          "./src/"
+        ],
+        "alias": {
+          "@config": "./src/config",
+          "@controllers": "./src/controllers",
+          "@libs": "./src/libs",
+          "@middlewares": "./src/middlewares",
+          "@models": "./src/models",
+          "@routes": "./src/routes",
+          "@services": "./src/services",
+          "@validations": "./src/validations"
+        }
+      }
+    ]
   ]
 }

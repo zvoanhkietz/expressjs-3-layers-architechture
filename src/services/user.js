@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { Op } from 'sequelize'
 
-import { splitStrToArray } from '../libs/string-utils'
+import { splitStrToArray } from '@libs/string-utils'
 
 export default class UserService {
   /**

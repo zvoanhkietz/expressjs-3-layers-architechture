@@ -1,6 +1,6 @@
 import {describe, expect, test} from '@jest/globals'
 
-import Validator from '../../libs/validator'
+import Validator from '@libs/validator'
 
 describe('Validator has', () => {
   const validator = new Validator([

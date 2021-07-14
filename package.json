@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "prestart": "babel ./src --out-dir build",
+    "prestart": "babel ./src --out-dir=build --ignore=src/**/*.test.js",
     "start": "node ./build/app",
     "babel-node": "babel-node --presets='@babel/preset-env'",
     "dev": "nodemon --exec yarn babel-node -- src/app.js",
@@ -38,6 +38,7 @@
     "@babel/runtime": "^7.13.9",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.0.6",
+    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^4.6.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.23.4",

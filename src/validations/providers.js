@@ -1,4 +1,4 @@
-import { splitStrToArray } from '../libs/string-utils'
+import { splitStrToArray } from '@libs/string-utils'
 
 export default {
   inlist (value, list) {

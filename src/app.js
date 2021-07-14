@@ -5,8 +5,8 @@ import createError from 'http-errors'
 import morgan from 'morgan'
 import { join } from 'path'
 
-import { port } from './config/config'
-import loadRoutes from './libs/load-routes'
+import { port } from '@config/config'
+import loadRoutes from '@libs/load-routes'
 
 dotenv.config()
 const app = express()

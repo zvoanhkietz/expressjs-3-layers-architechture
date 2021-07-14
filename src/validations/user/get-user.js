@@ -1,6 +1,6 @@
-import Validator from '../../libs/validator'
-import { User } from '../../models'
-import ValidationProvider from '../providers'
+import Validator from '@libs/validator'
+import { User } from '@models'
+import ValidationProvider from '@validations/providers'
 
 export default class GetUserValidator extends Validator {
   /**

@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize'
 
-import dbConfig from '../config/db'
+import dbConfig from '@config/db'
 
 const env = process.env.NODE_ENV || 'development'
 const config = dbConfig[env]
@@ -12,7 +12,7 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config)
 }
 
-const db = require('../libs/autoload').default(__dirname, __filename, [sequelize])
+const db = require('@libs/autoload').default(__dirname, __filename, [sequelize])
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {

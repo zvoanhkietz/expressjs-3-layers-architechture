@@ -1,6 +1,6 @@
-import { getUsers } from '../controllers/user'
-import { checkToken } from '../middlewares/auth'
-import catchWrap from '../middlewares/catch-wrap'
+import { getUsers } from '@controllers/user'
+import { checkToken } from '@middlewares/auth'
+import catchWrap from '@middlewares/catch-wrap'
 
 /**
  * Init a express router

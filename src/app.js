@@ -1,12 +1,11 @@
+import { port } from '@config/config'
+import loadRoutes from '@libs/load-routes'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { json } from 'express'
 import createError from 'http-errors'
 import morgan from 'morgan'
 import { join } from 'path'
-
-import { port } from '@config/config'
-import loadRoutes from '@libs/load-routes'
 
 dotenv.config()
 const app = express()

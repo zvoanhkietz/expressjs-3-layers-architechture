@@ -1,5 +1,4 @@
 import {describe, expect, test} from '@jest/globals'
-
 import Validator from '@libs/validator'
 
 describe('Validator has', () => {

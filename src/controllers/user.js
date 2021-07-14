@@ -1,8 +1,7 @@
-import createError from 'http-errors'
-
 import models from '@models'
 import UserService from '@services/user'
 import GetUserValidator from '@validations/user/get-user'
+import createError from 'http-errors'
 
 export default {
   /**
